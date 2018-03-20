@@ -1,0 +1,13 @@
+[[database]]
+host = "hostname"
+user = "username"
+pass = "password"
+system = "sqlserver"
+encoding = "utf-8"
+
+[[database]]
+host = "localhost"
+user = "test"
+pass = "test1234"
+system = "mysql"
+encoding = "utf-8"
