@@ -1,2 +1,5 @@
 package: db-extracting-man
-import: []
+import: 
+- package: github.com/urfave/cli
+- package: github.com/BurntSushi/toml
+  version: ^0.3.0
