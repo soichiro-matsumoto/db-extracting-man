@@ -3,3 +3,4 @@ import:
 - package: github.com/urfave/cli
 - package: github.com/BurntSushi/toml
   version: ^0.3.0
+- package: github.com/denisenkom/go-mssqldb

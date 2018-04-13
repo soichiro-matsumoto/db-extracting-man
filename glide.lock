@@ -1,8 +1,16 @@
-hash: 5f07ea4a602e846a745ffc5f37b2a88dbded3ba4c0584d8abee1f206d52f18aa
-updated: 2018-03-20T15:44:47.2556057+09:00
+hash: 8b19820396a44fa8f3f94c7ad3bb0287911f7fcf5dd1e7b7b6e4da266e931e53
+updated: 2018-04-13T18:40:15.9978532+09:00
 imports:
 - name: github.com/BurntSushi/toml
   version: b26d9c308763d68093482582cea63d69be07a0f0
+- name: github.com/denisenkom/go-mssqldb
+  version: 2e93935aa9096273693401939a61fb8a9b2c9d14
+  subpackages:
+  - internal/cp
 - name: github.com/urfave/cli
   version: 8e01ec4cd3e2d84ab2fe90d8210528ffbb06d8ff
+- name: golang.org/x/crypto
+  version: 1875d0a70c90e57f11972aefd42276df65e895b9
+  subpackages:
+  - md4
 testImports: []

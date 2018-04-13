@@ -32,9 +32,9 @@ func main() {
 				for i, v := range config.GetConfig().Databases {
 					fmt.Println(
 						"[" + strconv.Itoa(i) + "]\n" +
-							"	Host:" + v.Host + "\n" +
-							"	System:" + v.System + "\n" +
-							"	Encoding:" + v.Encoding)
+							"	Host	: " + v.Host + "\n" +
+							"	System	: " + v.System + "\n" +
+							"	Encoding: " + v.Encoding)
 				}
 
 				fmt.Println("/--------------------------------------/")
@@ -42,7 +42,7 @@ func main() {
 			},
 		},
 		/*
-			run [key] [sqlfilepath] []
+			run [key] [sql-path] [output-path]
 		*/
 		{
 			Name:  "run",
@@ -54,9 +54,9 @@ func main() {
 
 				fmt.Println(
 					"[" + strconv.Itoa(key) + "]\n" +
-						"	Host:" + db.Host + "\n" +
-						"	System:" + db.System + "\n" +
-						"	Encoding:" + db.Encoding)
+						"	Host	: " + db.Host + "\n" +
+						"	System	: " + db.System + "\n" +
+						"	Encoding: " + db.Encoding)
 
 				return nil
 			},
