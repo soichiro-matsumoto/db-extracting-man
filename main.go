@@ -1,7 +1,7 @@
 package main
 
 import (
-	"db-extracting-man/config"
+	"extract/config"
 	"fmt"
 	"os"
 	"strconv"
@@ -12,7 +12,7 @@ import (
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "db-extracting-man"
+	app.Name = "extract"
 	app.Usage = "クエリを実行してCSVに出力します。"
 	app.Version = "0.0.1"
 	app.Compiled = time.Now()
@@ -42,9 +42,24 @@ func main() {
 			},
 		},
 		/*
-			extract [host] [user] [pass] [encoding] [query.sql] [output.csv]
+			run [key]
 		*/
-		{},
+		{
+			Name:  "run",
+			Usage: "抽出実行する",
+			Action: func(c *cli.Context) error {
+
+				key := c.Args().Get(0)
+				fmt.Println("key：" + arg1)
+
+				arg2 := c.Args().Get(1)
+				fmt.Println("2つ目：" + arg2)
+
+				db := config.GetConfig().Databases[strconv.Atoi(key)]
+
+				return nil
+			},
+		},
 	}
 
 	app.Run(os.Args)
