@@ -42,20 +42,21 @@ func main() {
 			},
 		},
 		/*
-			run [key]
+			run [key] [sqlfilepath] []
 		*/
 		{
 			Name:  "run",
 			Usage: "抽出実行する",
 			Action: func(c *cli.Context) error {
 
-				key := c.Args().Get(0)
-				fmt.Println("key：" + arg1)
+				key, _ := strconv.Atoi(c.Args().Get(0))
+				db := config.GetConfig().Databases[key]
 
-				arg2 := c.Args().Get(1)
-				fmt.Println("2つ目：" + arg2)
-
-				db := config.GetConfig().Databases[strconv.Atoi(key)]
+				fmt.Println(
+					"[" + strconv.Itoa(key) + "]\n" +
+						"	Host:" + db.Host + "\n" +
+						"	System:" + db.System + "\n" +
+						"	Encoding:" + db.Encoding)
 
 				return nil
 			},
