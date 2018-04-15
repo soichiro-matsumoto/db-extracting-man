@@ -1,6 +1,10 @@
 package config
 
-import "github.com/BurntSushi/toml"
+import (
+	"strconv"
+
+	"github.com/BurntSushi/toml"
+)
 
 func GetConfig() *Config {
 	var config Config
@@ -20,5 +24,15 @@ type Database struct {
 	User     string `toml:"user"`
 	Pass     string `toml:"pass"`
 	System   string `toml:"system"`
+	Port     int    `toml:"port"`
+	Schema   string `toml:"schema"`
 	Encoding string `toml:"encoding"`
+}
+
+func (this *Database) ToString() string {
+	return "	Host	: " + this.Host + "\n" +
+		"	System	: " + this.System + "\n" +
+		"	Port	: " + strconv.Itoa(this.Port) + "\n" +
+		"	Schema	: " + this.Schema + "\n" +
+		"	Encoding: " + this.Encoding
 }

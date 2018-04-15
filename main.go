@@ -1,7 +1,8 @@
 package main
 
 import (
-	"extract/config"
+	"extract-cli/config"
+	"extract-cli/handlers"
 	"fmt"
 	"os"
 	"strconv"
@@ -26,15 +27,12 @@ func main() {
 			Name:  "db",
 			Usage: "config.tomlに設定されているDBの一覧を表示する",
 			Action: func(c *cli.Context) error {
+				fmt.Println("### config.tomlに設定されているDBの一覧を表示する")
 				fmt.Println("/--------------------------------------/")
-				fmt.Println("config.tomlに設定されているDBの一覧を表示する")
-
-				for i, v := range config.GetConfig().Databases {
+				for i, db := range config.GetConfig().Databases {
 					fmt.Println(
 						"[" + strconv.Itoa(i) + "]\n" +
-							"	Host	: " + v.Host + "\n" +
-							"	System	: " + v.System + "\n" +
-							"	Encoding: " + v.Encoding)
+							db.ToString())
 				}
 
 				fmt.Println("/--------------------------------------/")
@@ -45,21 +43,9 @@ func main() {
 			run [key] [sql-path] [output-path]
 		*/
 		{
-			Name:  "run",
-			Usage: "抽出実行する",
-			Action: func(c *cli.Context) error {
-
-				key, _ := strconv.Atoi(c.Args().Get(0))
-				db := config.GetConfig().Databases[key]
-
-				fmt.Println(
-					"[" + strconv.Itoa(key) + "]\n" +
-						"	Host	: " + db.Host + "\n" +
-						"	System	: " + db.System + "\n" +
-						"	Encoding: " + db.Encoding)
-
-				return nil
-			},
+			Name:   "run",
+			Usage:  "抽出実行する",
+			Action: handlers.RunHandler,
 		},
 	}
 

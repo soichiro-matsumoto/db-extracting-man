@@ -3,6 +3,8 @@ host = "hostname"
 user = "username"
 pass = "password"
 system = "sqlserver"
+port = 1433
+schema = "test_db"
 encoding = "utf-8"
 
 [[database]]
@@ -10,4 +12,6 @@ host = "localhost"
 user = "test"
 pass = "test1234"
 system = "mysql"
+port = 3306
+schema = "test_db"
 encoding = "utf-8"

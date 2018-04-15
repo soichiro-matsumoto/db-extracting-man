@@ -4,12 +4,23 @@ import (
 	"database/sql"
 
 	_ "github.com/denisenkom/go-mssqldb"
+	_ "github.com/go-sql-driver/mysql"
 )
 
-func execute(c Connection, query string) (*sql.Rows, error) {
+type DbClient struct {
+	Connection Connection
+}
+
+func NewDbClient(c Connection) *DbClient {
+	return &DbClient{
+		Connection: c,
+	}
+}
+
+func (this DbClient) Execute(query string) (*sql.Rows, error) {
 	// 接続
 	// "sqlserver"の代わりに"mssql"でもOK
-	con, err := sql.Open(c.GetType(), c.GetString())
+	con, err := sql.Open(this.Connection.GetType(), this.Connection.GetString())
 	if err != nil {
 		panic(err.Error())
 	}
