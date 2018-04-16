@@ -30,9 +30,10 @@ type Database struct {
 }
 
 func (this *Database) ToString() string {
-	return "	Host	: " + this.Host + "\n" +
-		"	System	: " + this.System + "\n" +
-		"	Port	: " + strconv.Itoa(this.Port) + "\n" +
-		"	Schema	: " + this.Schema + "\n" +
-		"	Encoding: " + this.Encoding
+	return `
+	Host	: ` + this.Host + `
+	System	: ` + this.System + `
+	Port	: ` + strconv.Itoa(this.Port) + `
+	Schema	: ` + this.Schema + `
+	Encoding: ` + this.Encoding
 }
