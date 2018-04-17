@@ -39,13 +39,20 @@ func main() {
 				return nil
 			},
 		},
-		/*
-			run [key] [sql-path] [output-path]
-		*/
 		{
-			Name:   "run",
+			Name:   "csv",
 			Usage:  "抽出実行する",
 			Action: handlers.RunHandler,
+			// Subcommands: []cli.Command{
+			// 	{
+			// 		/*
+			// 			csv query [key] [sql_query] [output-path]
+			// 		*/
+			// 		Name:   "query",
+			// 		Usage:  "クエリで抽出を実行する",
+			// 		Action: handlers.RunHandler,
+			// 	},
+			// },
 		},
 	}
 

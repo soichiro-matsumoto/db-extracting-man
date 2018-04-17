@@ -22,10 +22,6 @@ func (this *MySQL) GetType() string {
 }
 
 func (this *MySQL) GetString() string {
-	// user:password@tcp(host:3306)/schema"
-	return this.Database.User +
-		":" + this.Database.Pass +
-		"@tcp(" + this.Database.Host +
-		":" + strconv.Itoa(this.Database.Port) +
-		")/" + this.Database.Schema
+	// user:password@tcp(host:port)/schema"
+	return this.Database.User + ":" + this.Database.Pass + "@tcp(" + this.Database.Host + ":" + strconv.Itoa(this.Database.Port) + ")/" + this.Database.Schema
 }
