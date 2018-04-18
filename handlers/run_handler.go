@@ -63,35 +63,34 @@ func RunHandler(c *cli.Context) error {
 	if err != nil {
 		return err
 	}
-	values := make([]sql.RawBytes, len(columns))
+	rawBytes := make([]sql.RawBytes, len(columns))
 
 	//  rows.Scan は引数に `[]interface{}`が必要.
-	scanArgs := make([]interface{}, len(values))
-	for i := range values {
-		scanArgs[i] = &values[i]
+	scanArgs := make([]interface{}, len(rawBytes))
+	for i := range rawBytes {
+		scanArgs[i] = &rawBytes[i]
 	}
 
+	// csv出力するの連想配列
 	recordes := [][]string{}
 	for rows.Next() {
-		r := []string{}
 		err = rows.Scan(scanArgs...)
 		if err != nil {
 			return err
 		}
 
-		for i, col := range values {
+		// 1行分
+		r := []string{}
+		// カラム数分ループ
+		for i, col := range rawBytes {
 			var value string
-			// Here we can check if the value is nil (NULL value)
-			if col == nil {
-				value = "NULL"
-			} else {
+			if col != nil {
 				value = string(col)
 			}
 			fmt.Println(columns[i], ": ", value)
-			// csv１行追加
 			r = append(r, value)
 		}
-
+		// csv１行追加
 		recordes = append(recordes, r)
 	}
 
