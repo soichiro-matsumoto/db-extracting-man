@@ -24,7 +24,7 @@ func main() {
 			configに記載されているDBのホスト名の一覧を表示する
 		*/
 		{
-			Name:  "db",
+			Name:  "config",
 			Usage: "config.tomlに設定されているDBの一覧を表示する",
 			Action: func(c *cli.Context) error {
 				fmt.Println("### config.tomlに設定されているDBの一覧を表示する")
@@ -41,8 +41,29 @@ func main() {
 		},
 		{
 			Name:   "csv",
-			Usage:  "抽出実行する。csv query [key] [sql_query] [output_path]",
+			Usage:  "csv形式として出力する。csv [key] [sql_query] [output_path]",
 			Action: handlers.RunHandler,
+		},
+		{
+			Name:   "xml",
+			Usage:  "xml形式として出力する。TODO:",
+			Action: func(c *cli.Context) error {
+				return nil
+			},
+		},
+		{
+			Name:   "json",
+			Usage:  "JSON形式として出力する。TODO:",
+			Action: func(c *cli.Context) error {
+				return nil
+			},
+		},
+		{
+			Name:   "excel",
+			Usage:  "Excel形式として出力する。TODO:",
+			Action: func(c *cli.Context) error {
+				return nil
+			},
 		},
 	}
 
