@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"github.com/BurntSushi/toml"
+	"fmt"
 )
 
 func GetConfig() *Config {
@@ -30,10 +31,11 @@ type Database struct {
 }
 
 func (this *Database) ToString() string {
-	return `
-	Host	: ` + this.Host + `
-	System	: ` + this.System + `
-	Port	: ` + strconv.Itoa(this.Port) + `
-	Schema	: ` + this.Schema + `
-	Encoding: ` + this.Encoding
+	return fmt.Sprintf(`
+	Host	: %s
+	System	: %s
+	Port	: %s
+	Schema	: %s
+	Encoding: %s
+	`, this.Host, this.System, strconv.Itoa(this.Port), this.Port, this.Encoding);
 }
