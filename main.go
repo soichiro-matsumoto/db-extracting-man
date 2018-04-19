@@ -13,7 +13,7 @@ import (
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "extract"
+	app.Name = "extract-cli"
 	app.Usage = "クエリを実行してCSVに出力します。"
 	app.Version = "0.0.1"
 	app.Compiled = time.Now()
@@ -41,18 +41,8 @@ func main() {
 		},
 		{
 			Name:   "csv",
-			Usage:  "抽出実行する",
+			Usage:  "抽出実行する。csv query [key] [sql_query] [output_path]",
 			Action: handlers.RunHandler,
-			// Subcommands: []cli.Command{
-			// 	{
-			// 		/*
-			// 			csv query [key] [sql_query] [output-path]
-			// 		*/
-			// 		Name:   "query",
-			// 		Usage:  "クエリで抽出を実行する",
-			// 		Action: handlers.RunHandler,
-			// 	},
-			// },
 		},
 	}
 

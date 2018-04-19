@@ -19,7 +19,6 @@ func NewDbClient(c Connection) *DbClient {
 
 func (this DbClient) Execute(query string) (*sql.Rows, error) {
 	// 接続
-	// "sqlserver"の代わりに"mssql"でもOK
 	con, err := sql.Open(this.Connection.GetType(), this.Connection.GetString())
 	if err != nil {
 		panic(err.Error())
