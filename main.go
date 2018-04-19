@@ -19,10 +19,6 @@ func main() {
 	app.Compiled = time.Now()
 
 	app.Commands = []cli.Command{
-		/*
-			db
-			configに記載されているDBのホスト名の一覧を表示する
-		*/
 		{
 			Name:  "config",
 			Usage: "config.tomlに設定されているDBの一覧を表示する",

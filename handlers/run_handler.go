@@ -52,8 +52,12 @@ func RunHandler(c *cli.Context) error {
 	fmt.Println("Database")
 	fmt.Println(db.ToString())
 
+	con, err := data.ConnectionCreate(db)
+	if err != nil{
+		return err
+	}
 	// query 実行
-	client := data.NewDbClient(data.NewMySQL(db))
+	client := data.NewDbClient(con)
 	rows, err := client.Execute(args.Query)
 	if err != nil {
 		return err
