@@ -86,7 +86,7 @@ func RunHandler(c *cli.Context) error {
 		// 1行分
 		r := []string{}
 		// カラム数分ループ
-		for i, col := range rawBytes {
+		for _, col := range rawBytes {
 			var value string
 			if col != nil {
 				value = string(col)

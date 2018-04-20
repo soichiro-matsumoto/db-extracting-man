@@ -1,8 +1,6 @@
 package config
 
 import (
-	"strconv"
-
 	"github.com/BurntSushi/toml"
 	"fmt"
 )
@@ -37,5 +35,5 @@ func (this *Database) ToString() string {
 	Port	: %d
 	Schema	: %s
 	Encoding: %s
-	`, this.Host, this.System, strconv.Itoa(this.Port), this.Schema, this.Encoding);
+	`, this.Host, this.System, this.Port, this.Schema, this.Encoding);
 }
