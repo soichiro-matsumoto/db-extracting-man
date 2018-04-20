@@ -41,8 +41,6 @@ func (this *Args) GetDatabase(c *config.Config) (*config.Database, error) {
 func RunHandler(c *cli.Context) error {
 
 	args := NewArgs(c)
-	fmt.Println("Args")
-	fmt.Println(args)
 
 	// config.tomlからDB接続情報を取得
 	db, err := args.GetDatabase(config.GetConfig())
@@ -52,14 +50,16 @@ func RunHandler(c *cli.Context) error {
 	fmt.Println("Database")
 	fmt.Println(db.ToString())
 
-	con, err := data.ConnectionCreate(db)
+	con, err := data.NewConnection(db)
 	if err != nil{
 		return err
 	}
+
 	// query 実行
 	client := data.NewDbClient(con)
 	rows, err := client.Execute(args.Query)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
@@ -91,7 +91,6 @@ func RunHandler(c *cli.Context) error {
 			if col != nil {
 				value = string(col)
 			}
-			fmt.Println(columns[i], ": ", value)
 			r = append(r, value)
 		}
 		// csv１行追加

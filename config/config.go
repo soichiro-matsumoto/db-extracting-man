@@ -34,8 +34,8 @@ func (this *Database) ToString() string {
 	return fmt.Sprintf(`
 	Host	: %s
 	System	: %s
-	Port	: %s
+	Port	: %d
 	Schema	: %s
 	Encoding: %s
-	`, this.Host, this.System, strconv.Itoa(this.Port), this.Port, this.Encoding);
+	`, this.Host, this.System, strconv.Itoa(this.Port), this.Schema, this.Encoding);
 }

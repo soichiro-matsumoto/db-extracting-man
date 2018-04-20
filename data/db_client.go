@@ -21,9 +21,8 @@ func (this DbClient) Execute(query string) (*sql.Rows, error) {
 	// 接続
 	con, err := sql.Open(this.Connection.GetType(), this.Connection.GetString())
 	if err != nil {
-		panic(err.Error())
+		return nil, err
 	}
-
 	// 切断
 	defer con.Close()
 

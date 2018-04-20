@@ -12,7 +12,7 @@ type Connection interface {
 	GetString() string
 }
 
-func ConnectionCreate(db *config.Database) (Connection, error){
+func NewConnection(db *config.Database) (Connection, error){
 	switch db.System {
 	case "mysql":
 		return NewMySQL(db), nil

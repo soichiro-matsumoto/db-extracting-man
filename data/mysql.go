@@ -23,6 +23,6 @@ func (this *MySQL) GetType() string {
 
 func (this *MySQL) GetString() string {
 	// user:password@tcp(host:port)/schema"
-	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",
+	return fmt.Sprintf("%s:%s@tcp(%s:%d)/%s",
 		this.Database.User, this.Database.Pass, this.Database.Host, this.Database.Port, this.Database.Schema)
 }

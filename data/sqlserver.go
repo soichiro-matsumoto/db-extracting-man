@@ -23,6 +23,6 @@ func (this *SQLServer) GetType() string {
 
 func (this *SQLServer) GetString() string {
 	// sqlserver://sa:mypass@localhost:1234?database=master&connection+timeout=30
-	return fmt.Sprintf("sqlserver://%s:%s@%s:%s?database=%s&connection+timeout=30",
+	return fmt.Sprintf("sqlserver://%s:%s@%s:%d?database=%s&connection+timeout=30",
 		this.Database.User, this.Database.Pass, this.Database.Host, this.Database.Port, this.Database.Schema)
 }

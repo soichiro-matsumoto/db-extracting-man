@@ -44,6 +44,7 @@ func main() {
 			Name:   "xml",
 			Usage:  "xml形式として出力する。TODO:",
 			Action: func(c *cli.Context) error {
+				fmt.Println("Unimplemented ....")
 				return nil
 			},
 		},
@@ -51,6 +52,7 @@ func main() {
 			Name:   "json",
 			Usage:  "JSON形式として出力する。TODO:",
 			Action: func(c *cli.Context) error {
+				fmt.Println("Unimplemented ....")
 				return nil
 			},
 		},
@@ -58,6 +60,7 @@ func main() {
 			Name:   "excel",
 			Usage:  "Excel形式として出力する。TODO:",
 			Action: func(c *cli.Context) error {
+				fmt.Println("Unimplemented ....")
 				return nil
 			},
 		},
