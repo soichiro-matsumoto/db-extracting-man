@@ -1,6 +1,10 @@
-hash: 75c5a3613dc1c45e78a22b06f6bfa2ba03003d1913b91f565e5a85ec89941192
-updated: 2018-04-15T14:37:36.489139+09:00
+hash: 93ab87b5de340993743be060c638182de27bad163c998a5bf7384a1284c30278
+updated: 2018-04-23T11:14:50.340775+09:00
 imports:
+- name: github.com/ahmetalpbalkan/go-linq
+  version: 67424dce7b47e42b7f2373557878fd6e3f2d8c44
+- name: github.com/ahmetb/go-linq
+  version: 67424dce7b47e42b7f2373557878fd6e3f2d8c44
 - name: github.com/BurntSushi/toml
   version: b26d9c308763d68093482582cea63d69be07a0f0
 - name: github.com/denisenkom/go-mssqldb

@@ -38,7 +38,7 @@ func (this *Args) GetDatabase(c *config.Config) (*config.Database, error) {
 	return &db, nil
 }
 
-func RunHandler(c *cli.Context) error {
+func CsvHandler(c *cli.Context) error {
 
 	args := NewArgs(c)
 

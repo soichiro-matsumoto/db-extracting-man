@@ -1,4 +1,5 @@
 [[database]]
+key = "sql_db"
 host = "hostname"
 user = "username"
 pass = "password"
@@ -8,6 +9,7 @@ schema = "test_db"
 encoding = "utf-8"
 
 [[database]]
+key = "mysql_db"
 host = "localhost"
 user = "test"
 pass = "test1234"

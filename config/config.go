@@ -2,7 +2,9 @@ package config
 
 import (
 	"github.com/BurntSushi/toml"
+	"github.com/ahmetb/go-linq"
 	"fmt"
+	"errors"
 )
 
 func GetConfig() *Config {
@@ -18,7 +20,21 @@ type Config struct {
 	Databases []Database `toml:"database"`
 }
 
+func (this *Config) GetDatabase(key string) (*Database, error){
+
+	where := linq.From(this.Databases).Where(func(c interface{}) bool{
+		return c.(Database).Port == 111
+	})
+
+	if !where.Any() {
+		return nil, errors.New(fmt.Sprintf("not defined key : %s", key))
+	}
+
+	return &where.First().(Database), nil
+}
+
 type Database struct {
+	Key      string `toml:"key"`
 	Host     string `toml:"host"`
 	User     string `toml:"user"`
 	Pass     string `toml:"pass"`

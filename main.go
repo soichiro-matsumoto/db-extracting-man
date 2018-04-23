@@ -38,7 +38,7 @@ func main() {
 		{
 			Name:   "csv",
 			Usage:  "csv形式として出力する。csv [key] [sql_query] [output_path]",
-			Action: handlers.RunHandler,
+			Action: handlers.CsvHandler,
 		},
 		{
 			Name:   "xml",

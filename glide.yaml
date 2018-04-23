@@ -5,3 +5,4 @@ import:
   version: ^0.3.0
 - package: github.com/denisenkom/go-mssqldb
 - package: github.com/go-sql-driver/mysql
+- package: github.com/ahmetalpbalkan/go-linq
