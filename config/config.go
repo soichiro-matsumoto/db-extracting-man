@@ -23,15 +23,15 @@ type Config struct {
 func (this *Config) GetDatabase(key string) (*Database, error){
 
 	where := linq.From(this.Databases).Where(func(c interface{}) bool{
-		return c.(Database).Port == 111
+		return c.(Database).Key == key
 	})
 
 	if !where.Any() {
 		return nil, errors.New(fmt.Sprintf("config key not defined : %s", key))
 	}
 
-	db := where.First()
-	return db.(*Database), nil
+	db := where.First().(Database)
+	return &db, nil
 }
 
 type Database struct {

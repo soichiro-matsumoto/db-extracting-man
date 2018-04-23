@@ -30,33 +30,34 @@ func NewArgs(c *cli.Context) *Args {
 
 func CsvHandler(c *cli.Context) error {
 
+	fmt.Println("start ....")
+
 	args := NewArgs(c)
 
 	// config.tomlからDB接続情報を取得
 	db, err := config.GetConfig().GetDatabase(args.Key)
 	if err != nil {
-		return err
+		return cli.NewExitError(err, 500)
 	}
-	fmt.Println("Database")
+	fmt.Println("selected database")
 	fmt.Println(db.ToString())
 
 	// Connection 生成
 	con, err := data.NewConnection(db)
 	if err != nil{
-		return err
+		return cli.NewExitError(err, 500)
 	}
 
 	// query 実行
 	client := data.NewDbClient(con)
 	rows, err := client.Execute(args.Query)
 	if err != nil {
-		fmt.Println(err)
-		return err
+		return cli.NewExitError(err, 500)
 	}
 
 	columns, err := rows.Columns() // カラム名を取得
 	if err != nil {
-		return err
+		return cli.NewExitError(err, 500)
 	}
 	rawBytes := make([]sql.RawBytes, len(columns))
 
@@ -71,7 +72,7 @@ func CsvHandler(c *cli.Context) error {
 	for rows.Next() {
 		err = rows.Scan(scanArgs...)
 		if err != nil {
-			return err
+			return cli.NewExitError(err, 500)
 		}
 
 		// 1行分
@@ -88,6 +89,12 @@ func CsvHandler(c *cli.Context) error {
 		recordes = append(recordes, r)
 	}
 
-	helpers.ToCsv(args.OutputPath, recordes)
+	err = helpers.ToCsv(args.OutputPath, recordes)
+	if err != nil {
+		return cli.NewExitError(err, 500)
+	}
+
+	fmt.Println("end ....")
+
 	return nil
 }
