@@ -6,7 +6,6 @@ import (
 	"extract-cli/data"
 	"extract-cli/helpers"
 	"fmt"
-	"strconv"
 
 	"github.com/urfave/cli"
 )
@@ -29,27 +28,19 @@ func NewArgs(c *cli.Context) *Args {
 	}
 }
 
-func (this *Args) GetDatabase(c *config.Config) (*config.Database, error) {
-	i, err := strconv.Atoi(this.Key)
-	if err != nil {
-		return nil, err
-	}
-	db := c.Databases[i]
-	return &db, nil
-}
-
 func CsvHandler(c *cli.Context) error {
 
 	args := NewArgs(c)
 
 	// config.tomlからDB接続情報を取得
-	db, err := args.GetDatabase(config.GetConfig())
+	db, err := config.GetConfig().GetDatabase(args.Key)
 	if err != nil {
 		return err
 	}
 	fmt.Println("Database")
 	fmt.Println(db.ToString())
 
+	// Connection 生成
 	con, err := data.NewConnection(db)
 	if err != nil{
 		return err

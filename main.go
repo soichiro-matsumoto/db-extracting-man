@@ -5,7 +5,6 @@ import (
 	"extract-cli/handlers"
 	"fmt"
 	"os"
-	"strconv"
 	"time"
 
 	"github.com/urfave/cli"
@@ -25,10 +24,8 @@ func main() {
 			Action: func(c *cli.Context) error {
 				fmt.Println("### config.tomlに設定されているDBの一覧を表示する")
 				fmt.Println("/--------------------------------------/")
-				for i, db := range config.GetConfig().Databases {
-					fmt.Println(
-						"[" + strconv.Itoa(i) + "]\n" +
-							db.ToString())
+				for _, db := range config.GetConfig().Databases {
+					fmt.Println(db.ToString())
 				}
 
 				fmt.Println("/--------------------------------------/")

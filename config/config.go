@@ -27,10 +27,11 @@ func (this *Config) GetDatabase(key string) (*Database, error){
 	})
 
 	if !where.Any() {
-		return nil, errors.New(fmt.Sprintf("not defined key : %s", key))
+		return nil, errors.New(fmt.Sprintf("config key not defined : %s", key))
 	}
 
-	return &where.First().(Database), nil
+	db := where.First()
+	return db.(*Database), nil
 }
 
 type Database struct {
@@ -46,10 +47,11 @@ type Database struct {
 
 func (this *Database) ToString() string {
 	return fmt.Sprintf(`
-	Host	: %s
-	System	: %s
-	Port	: %d
-	Schema	: %s
+	Key     : %s
+	Host    : %s
+	System  : %s
+	Port    : %d
+	Schema  : %s
 	Encoding: %s
-	`, this.Host, this.System, this.Port, this.Schema, this.Encoding);
+	`, this.Key, this.Host, this.System, this.Port, this.Schema, this.Encoding);
 }
