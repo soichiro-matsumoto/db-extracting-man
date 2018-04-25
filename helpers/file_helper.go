@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 )
 
-func FileRead(path string) (string, error){
+func ReadFile(path string) (string, error){
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		return "", err

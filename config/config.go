@@ -43,6 +43,7 @@ type Database struct {
 	Port     int    `toml:"port"`
 	Schema   string `toml:"schema"`
 	Encoding string `toml:"encoding"`
+	Timeout  int    `toml:"timeout"`
 }
 
 func (this *Database) ToString() string {
@@ -53,5 +54,6 @@ func (this *Database) ToString() string {
 	Port    : %d
 	Schema  : %s
 	Encoding: %s
-	`, this.Key, this.Host, this.System, this.Port, this.Schema, this.Encoding);
+	Timeout : %d
+	`, this.Key, this.Host, this.System, this.Port, this.Schema, this.Encoding, this.Timeout);
 }

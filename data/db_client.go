@@ -26,8 +26,5 @@ func (this DbClient) Execute(query string) (*sql.Rows, error) {
 	// 切断
 	defer con.Close()
 
-	// select(複数行)
-	rows, err := con.Query(query)
-
-	return rows, err
+	return con.Query(query)
 }

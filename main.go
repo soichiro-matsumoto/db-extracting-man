@@ -34,7 +34,13 @@ func main() {
 		},
 		{
 			Name:   "csv",
-			Usage:  "csv形式として出力する。csv [key] [sql_query] [output_path]",
+			Usage:  "csv形式として出力する。csv [config_key] [sql_filepath] [output_path]",
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:  "query, q",
+					Usage: "queryを直接指定",
+				},
+			},
 			Action: handlers.CsvHandler,
 		},
 		{

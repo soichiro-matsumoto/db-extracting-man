@@ -5,9 +5,9 @@ import (
 	"extract-cli/config"
 	"extract-cli/data"
 	"extract-cli/helpers"
-	"fmt"
 
 	"github.com/urfave/cli"
+	"log"
 )
 
 type Args struct {
@@ -16,36 +16,55 @@ type Args struct {
 	OutputPath string
 }
 
-func NewArgs(c *cli.Context) *Args {
-	path := c.Args().Get(2)
-	if path == "" {
-		path = "./output.csv"
+func NewArgs(c *cli.Context) (*Args, error) {
+
+	var query string = ""
+	q := c.String("query")
+	if q != ""{
+		query = q
+	} else {
+		var err error
+		read_filepath := c.Args().Get(1)
+		query, err = helpers.ReadFile(read_filepath)
+		if err != nil {
+			return nil, err
+		}
 	}
+
+	output_filepath := c.Args().Get(2)
+	if output_filepath == "" {
+		output_filepath = "./output.csv"
+	}
+
 	return &Args{
-		Key:        c.Args().Get(0),
-		Query:      c.Args().Get(1),
-		OutputPath: path,
-	}
+		Key: c.Args().Get(0),
+		Query: query,
+		OutputPath: output_filepath,
+	}, nil
 }
 
 func CsvHandler(c *cli.Context) error {
 
-	fmt.Println("start ....")
-
-	args := NewArgs(c)
+	log.Println("start ....")
+	args, err := NewArgs(c)
+	if err != nil {
+		return cli.NewExitError(err, 404)
+	}
 
 	// config.tomlからDB接続情報を取得
 	db, err := config.GetConfig().GetDatabase(args.Key)
 	if err != nil {
-		return cli.NewExitError(err, 500)
+		return cli.NewExitError(err, 404)
 	}
-	fmt.Println("selected database")
-	fmt.Println(db.ToString())
+	log.Println(`
+
+selected database
+	` + db.ToString())
 
 	// Connection 生成
 	con, err := data.NewConnection(db)
 	if err != nil{
-		return cli.NewExitError(err, 500)
+		return cli.NewExitError(err, 404)
 	}
 
 	// query 実行
@@ -94,7 +113,7 @@ func CsvHandler(c *cli.Context) error {
 		return cli.NewExitError(err, 500)
 	}
 
-	fmt.Println("end ....")
+	log.Println("end ....")
 
 	return nil
 }
