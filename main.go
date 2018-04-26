@@ -2,7 +2,7 @@ package main
 
 import (
 	"extract-cli/config"
-	"extract-cli/handlers"
+	"extract-cli/commands"
 	"fmt"
 	"os"
 	"time"
@@ -34,14 +34,14 @@ func main() {
 		},
 		{
 			Name:   "csv",
-			Usage:  "csv形式として出力する。csv [config_key] [sql_filepath] [output_path]",
+			Usage:  "csv形式として出力する。csv -k [config_key] -i [sql_filepath] -o [output_path]",
 			Flags: []cli.Flag{
-				cli.StringFlag{
-					Name:  "query, q",
-					Usage: "queryを直接指定",
-				},
+				commands.KeyFlag,
+				commands.QueryFlag,
+				commands.OutputPathFlag,
+				commands.InputPathFlag,
 			},
-			Action: handlers.CsvHandler,
+			Action: commands.CsvHandler,
 		},
 		{
 			Name:   "xml",

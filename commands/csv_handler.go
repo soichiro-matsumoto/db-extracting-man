@@ -1,4 +1,4 @@
-package handlers
+package commands
 
 import (
 	"database/sql"
@@ -8,7 +8,28 @@ import (
 
 	"github.com/urfave/cli"
 	"log"
+	"errors"
 )
+
+var QueryFlag cli.Flag = cli.StringFlag{
+	Name:  "query, q",
+	Usage: "queryを直接指定",
+}
+
+var InputPathFlag cli.Flag = cli.StringFlag{
+	Name: "inputpath, i",
+	Usage: "SQLファイルを指定",
+}
+
+var OutputPathFlag cli.Flag = cli.StringFlag{
+	Name: "outputpath, o",
+	Usage: "出力先のファイルパスを指定",
+}
+
+var KeyFlag cli.Flag = cli.StringFlag{
+	Name: "key, k",
+	Usage: "configに設定されているDBのKey",
+}
 
 type Args struct {
 	Key        string
@@ -18,34 +39,42 @@ type Args struct {
 
 func NewArgs(c *cli.Context) (*Args, error) {
 
+	key := c.String("key")
+	if key == "" {
+		return nil, errors.New("not selected key")
+	}
+
+	// query を取得
 	var query string = ""
 	q := c.String("query")
+	filepath := c.String("inputpath")
+
 	if q != ""{
 		query = q
-	} else {
+	} else if filepath != "" {
 		var err error
-		read_filepath := c.Args().Get(1)
-		query, err = helpers.ReadFile(read_filepath)
+		query, err = helpers.ReadFile(filepath)
 		if err != nil {
 			return nil, err
 		}
+	} else {
+		return nil, errors.New("not selected query")
 	}
 
-	output_filepath := c.Args().Get(2)
+	// output
+	output_filepath := c.String("outputpath")
 	if output_filepath == "" {
 		output_filepath = "./output.csv"
 	}
 
 	return &Args{
-		Key: c.Args().Get(0),
+		Key: key,
 		Query: query,
 		OutputPath: output_filepath,
 	}, nil
 }
 
 func CsvHandler(c *cli.Context) error {
-
-	log.Println("start ....")
 	args, err := NewArgs(c)
 	if err != nil {
 		return cli.NewExitError(err, 404)
@@ -57,7 +86,6 @@ func CsvHandler(c *cli.Context) error {
 		return cli.NewExitError(err, 404)
 	}
 	log.Println(`
-
 selected database
 	` + db.ToString())
 
@@ -68,6 +96,7 @@ selected database
 	}
 
 	// query 実行
+	log.Printf("execute query ...\n")
 	client := data.NewDbClient(con)
 	rows, err := client.Execute(args.Query)
 	if err != nil {
@@ -108,12 +137,13 @@ selected database
 		recordes = append(recordes, r)
 	}
 
+	// csv 出力
 	err = helpers.ToCsv(args.OutputPath, recordes)
 	if err != nil {
 		return cli.NewExitError(err, 500)
 	}
 
-	log.Println("end ....")
+	log.Printf("end\n")
 
 	return nil
 }

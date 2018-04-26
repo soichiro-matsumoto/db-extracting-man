@@ -3,6 +3,7 @@ package helpers
 import (
 	"encoding/csv"
 	"os"
+	"log"
 )
 
 func ToCsv(path string, records [][]string) error {
@@ -19,6 +20,7 @@ func ToCsv(path string, records [][]string) error {
 		return err
 	}
 
+	log.Printf("writing csv ... [file -> %s]\n", path)
 	writer := csv.NewWriter(file)
 	writer.WriteAll(records)
 	writer.Flush()
