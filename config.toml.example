@@ -1,21 +1,26 @@
+[default]
+dbname = "mysql_db"
+input = "default.sql"
+output = "default.csv"
+
 [[database]]
-key = "sql_db"
+name = "sql_db"
 host = "hostname"
 user = "username"
 pass = "password"
 system = "sqlserver"
 port = 1433
 schema = "test_db"
-encoding = "utf-8"
+charset = "sjis"
 timeout = 30
 
 [[database]]
-key = "mysql_db"
+name = "mysql_db"
 host = "localhost"
 user = "test"
 pass = "test1234"
 system = "mysql"
 port = 3306
 schema = "test_db"
-encoding = "utf-8"
+charset = "utf-8mb4"
 timeout = 30
