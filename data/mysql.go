@@ -21,6 +21,6 @@ func (this *MySQL) GetType() string {
 
 func (this *MySQL) GetString() string {
 	// user:password@tcp(host:port)/schema?timeout=30"
-	return fmt.Sprintf(`%s:%s@tcp(%s:%d)/%s?timeout=%ds`,
-		this.Database.User, this.Database.Pass, this.Database.Host, this.Database.Port, this.Database.Schema, this.Database.Timeout)
+	return fmt.Sprintf(`%s:%s@tcp(%s:%d)/%s?timeout=%ds&charset=%s`,
+		this.Database.User, this.Database.Pass, this.Database.Host, this.Database.Port, this.Database.Schema, this.Database.Timeout, this.Database.Charset)
 }

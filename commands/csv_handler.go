@@ -26,28 +26,34 @@ var OutputPathFlag cli.Flag = cli.StringFlag{
 	Usage: "出力先のファイルパスを指定",
 }
 
-var KeyFlag cli.Flag = cli.StringFlag{
-	Name: "key, k",
-	Usage: "configに設定されているDBのKey",
+var DbNameFlag cli.Flag = cli.StringFlag{
+	Name: "dbname, dn",
+	Usage: "configに設定されているdatabaseのname",
 }
 
 type Args struct {
-	Key        string
+	DbName     string
 	Query      string
 	OutputPath string
 }
 
 func NewArgs(c *cli.Context) (*Args, error) {
 
-	key := c.String("key")
-	if key == "" {
-		return nil, errors.New("not selected key")
+	dbName := c.String("db")
+	if dbName == "" {
+		return nil, errors.New("not selected db")
 	}
 
 	// query を取得
 	var query string = ""
 	q := c.String("query")
-	filepath := c.String("inputpath")
+	i := c.String("inputpath")
+	var filepath string
+	if i != "" {
+		filepath = i
+	} else {
+		filepath = config.GetConfig().Default.Input
+	}
 
 	if q != ""{
 		query = q
@@ -62,13 +68,20 @@ func NewArgs(c *cli.Context) (*Args, error) {
 	}
 
 	// output
-	output_filepath := c.String("outputpath")
+	o := c.String("outputpath")
+	var output_filepath string
+	if o != "" {
+		output_filepath = o
+	} else {
+		output_filepath = config.GetConfig().Default.Output
+	}
+
 	if output_filepath == "" {
 		output_filepath = "./output.csv"
 	}
 
 	return &Args{
-		Key: key,
+		DbName: dbName,
 		Query: query,
 		OutputPath: output_filepath,
 	}, nil
@@ -81,7 +94,7 @@ func CsvHandler(c *cli.Context) error {
 	}
 
 	// config.tomlからDB接続情報を取得
-	db, err := config.GetConfig().GetDatabase(args.Key)
+	db, err := config.GetConfig().GetDatabase(args.DbName)
 	if err != nil {
 		return cli.NewExitError(err, 404)
 	}

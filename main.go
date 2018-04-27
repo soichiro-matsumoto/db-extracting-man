@@ -13,7 +13,7 @@ import (
 func main() {
 	app := cli.NewApp()
 	app.Name = "extract-cli"
-	app.Usage = "クエリを実行してCSVに出力します。"
+	app.Usage = "クエリを実行して指定のフォーマットに出力します。"
 	app.Version = "0.0.1"
 	app.Compiled = time.Now()
 
@@ -34,9 +34,9 @@ func main() {
 		},
 		{
 			Name:   "csv",
-			Usage:  "csv形式として出力する。csv -k [config_key] -i [sql_filepath] -o [output_path]",
+			Usage:  "csv形式として出力する。csv -dn [config_key] -i [input_filepath] -o [output_path]",
 			Flags: []cli.Flag{
-				commands.KeyFlag,
+				commands.DbNameFlag,
 				commands.QueryFlag,
 				commands.OutputPathFlag,
 				commands.InputPathFlag,
@@ -47,7 +47,7 @@ func main() {
 			Name:   "xml",
 			Usage:  "xml形式として出力する。TODO:",
 			Action: func(c *cli.Context) error {
-				fmt.Println("Unimplemented ....")
+				fmt.Println("not implemented ....")
 				return nil
 			},
 		},
@@ -55,7 +55,7 @@ func main() {
 			Name:   "json",
 			Usage:  "JSON形式として出力する。TODO:",
 			Action: func(c *cli.Context) error {
-				fmt.Println("Unimplemented ....")
+				fmt.Println("not implemented ....")
 				return nil
 			},
 		},
@@ -63,7 +63,7 @@ func main() {
 			Name:   "excel",
 			Usage:  "Excel形式として出力する。TODO:",
 			Action: func(c *cli.Context) error {
-				fmt.Println("Unimplemented ....")
+				fmt.Println("not implemented ....")
 				return nil
 			},
 		},
